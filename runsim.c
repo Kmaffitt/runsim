@@ -11,8 +11,9 @@ int makeargv(char *s, char *delimiters, char ***argvp);
 int main  (int argc, char* argv[]){
   pid_t childpid = 0;
   int i, pr_limit;
-  
+  FILE* fp;
   int pr_count = 0;
+  char line [100];
   
   //check for correct command line arguments 
   if (argc !=2){
@@ -22,14 +23,22 @@ int main  (int argc, char* argv[]){
   //max number of children
   pr_limit = atoi(argv[1]);
   
+  //opening file
+  fp = fopen("testing.data" , "r");
+  if(fp == NULL) {
+    perror("Error opening file");
+    return(-1);
+  }
   
-  while(fgets != NULL){
-    if(pr_count == pr_limit){
-      wait(NULL);
-      pr_count--;
-    }
+  while(fgets(line, 100, fp) != NULL){
+    fprintf(stdout, "%s\n", line);
+    //f(pr_count == pr_limit){
+      //wait(NULL);
+      //pr_count--;
+    //}
       
   }
+  fclose(fp);
   //for (i = 1; i < n; i++)
     //if ((childpid = fork()) <=0)
       //break;
