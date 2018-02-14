@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <limits.h>
 #include <sys/wait.h>
 
 //prototypes
@@ -13,7 +14,9 @@ int main  (int argc, char* argv[]){
   int i, pr_limit;
   FILE* fp;
   int pr_count = 0;
-  char line [100];
+  char line [MAX_CANON];
+  char** args;
+  char delim[] = " ";
   
   //check for correct command line arguments 
   if (argc !=2){
@@ -30,8 +33,10 @@ int main  (int argc, char* argv[]){
     return(-1);
   }
   
-  while(fgets(line, 100, fp) != NULL){
+  while(fgets(line, MAX_CANON, fp) != NULL){
     fprintf(stdout, "%s\n", line);
+    makeargv(line, delim, &args);
+    execvp(args[0], &args[0]);
     //f(pr_count == pr_limit){
       //wait(NULL);
       //pr_count--;
