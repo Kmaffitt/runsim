@@ -51,6 +51,7 @@ int main  (int argc, char* argv[]){
     			//fprintf(stderr, "%d processes running, limit: %d Waiting.\n", pr_count, 					pr_limit);
     			perror("Process limit reached");
     			wait(NULL);
+    			pr_count--;
     		}
       
   	}
